@@ -101,6 +101,7 @@ public class FlowGraph {
 				Vertex tempVertex = e.getKey();
 				Edge tempEdge = e.getValue();
 				v.addResEdge(tempVertex, tempEdge.c);
+				tempVertex.addResEdge(v, tempEdge.f);
 			}
 		}
 	}
