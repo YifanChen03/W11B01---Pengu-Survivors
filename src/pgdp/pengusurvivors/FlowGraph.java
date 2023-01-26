@@ -176,6 +176,26 @@ public class FlowGraph {
 	 */
 	public void updateNetwork(List<Vertex> path, int f) {
 		// TODO
+		for (Vertex v : path) {
+			//find nextVertex in path
+			int nextIndex = path.indexOf(v) + 1;
+			Vertex nextVertex = nextIndex < path.size() ? path.get(nextIndex) : null;
+			//save the smallest capacity
+			if (nextVertex != null) {
+				Edge tempEdgeModel = v.neighbours.get(nextVertex);
+				Edge tempEdgeResidual = v.residual.get(nextVertex);
+				//if Edge doesn't exist swap direction
+				if (tempEdgeModel == null) {
+					tempEdgeModel = nextVertex.neighbours.get(v);
+				}
+				tempEdgeModel.f = f;
+
+				if (tempEdgeResidual == null) {
+					tempEdgeResidual = nextVertex.residual.get(v);
+				}
+				tempEdgeResidual.c = f;
+			}
+		}
 	}
 
 	public static class Vertex {
