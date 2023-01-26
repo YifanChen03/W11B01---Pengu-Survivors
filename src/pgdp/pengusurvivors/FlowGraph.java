@@ -114,6 +114,31 @@ public class FlowGraph {
 	 */
 	public List<Vertex> findPathInResidual() {
 		// TODO
+		List<Vertex> currentPath = new ArrayList<>();
+		currentPath.add(s);
+		return findPathInResidualHelper(currentPath);
+	}
+
+	public List<Vertex> findPathInResidualHelper(List<Vertex> currentPath) {
+		//stop if last Element in list is t
+		Vertex currentVertex = currentPath.get(currentPath.size() - 1);
+		if (currentVertex.equals(t)) {
+			return currentPath;
+		}
+
+		for (Map.Entry<Vertex, Edge> e : currentVertex.residual.entrySet()) {
+			Vertex tempVertex = e.getKey();
+			Edge tempEdge = e.getValue();
+			if (tempEdge.c > 0 && !currentPath.contains(tempVertex)) {
+				currentPath.add(tempVertex);
+				List<Vertex> tempList = findPathInResidualHelper(currentPath);
+				if (tempList != null) {
+					return tempList;
+				}
+				currentPath.remove(currentPath.size() - 1);
+			}
+		}
+
 		return null;
 	}
 
