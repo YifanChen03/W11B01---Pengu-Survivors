@@ -150,7 +150,21 @@ public class FlowGraph {
 	 */
 	public int calcAugmentingFlow(List<Vertex> path) {
 		// TODO
-		return Integer.MIN_VALUE;
+		int minCapacity = Integer.MAX_VALUE;
+		boolean wasSet = false;
+		for (Vertex v : path) {
+			//find nextVertex in path
+			int nextIndex = path.indexOf(v) + 1;
+			Vertex nextVertex = nextIndex < path.size() ? path.get(nextIndex) : null;
+			//save smallest capacity
+			if (nextVertex != null) {
+				int currentCapacity = v.residual.get(nextVertex).c;
+				if (currentCapacity < minCapacity) {
+					minCapacity = currentCapacity;
+				}
+			}
+		}
+		return wasSet ? minCapacity : Integer.MIN_VALUE;
 	}
 
 	/**
