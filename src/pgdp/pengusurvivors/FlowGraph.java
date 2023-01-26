@@ -1,9 +1,6 @@
 package pgdp.pengusurvivors;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class FlowGraph {
@@ -99,6 +96,13 @@ public class FlowGraph {
 	public void generateResidualGraph() {
 		clearResidualGraph();
 		// TODO
+		for (Vertex v : vertices) {
+			for (Map.Entry<Vertex, Edge> e : v.neighbours.entrySet()) {
+				Vertex tempVertex = e.getKey();
+				Edge tempEdge = e.getValue();
+				v.addResEdge(tempVertex, tempEdge.c);
+			}
+		}
 	}
 
 	/**
