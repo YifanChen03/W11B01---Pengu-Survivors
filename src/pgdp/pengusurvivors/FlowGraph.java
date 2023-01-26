@@ -183,17 +183,16 @@ public class FlowGraph {
 			//save the smallest capacity
 			if (nextVertex != null) {
 				Edge tempEdgeModel = v.neighbours.get(nextVertex);
-				Edge tempEdgeResidual = v.residual.get(nextVertex);
+				Edge tempEdgeResidualSameDirection = v.residual.get(nextVertex);
+				Edge tempEdgeResidualOtherDirection = nextVertex.residual.get(v);
 				//if Edge doesn't exist swap direction
 				if (tempEdgeModel == null) {
 					tempEdgeModel = nextVertex.neighbours.get(v);
 				}
 				tempEdgeModel.f += f;
 
-				if (tempEdgeResidual == null) {
-					tempEdgeResidual = nextVertex.residual.get(v);
-				}
-				tempEdgeResidual.c += f;
+				tempEdgeResidualSameDirection.c -= f;
+				tempEdgeResidualOtherDirection.c += f;
 			}
 		}
 	}
