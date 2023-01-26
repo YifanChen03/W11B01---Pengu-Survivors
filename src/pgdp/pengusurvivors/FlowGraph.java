@@ -188,12 +188,12 @@ public class FlowGraph {
 				if (tempEdgeModel == null) {
 					tempEdgeModel = nextVertex.neighbours.get(v);
 				}
-				tempEdgeModel.f = f;
+				tempEdgeModel.f += f;
 
 				if (tempEdgeResidual == null) {
 					tempEdgeResidual = nextVertex.residual.get(v);
 				}
-				tempEdgeResidual.c = f;
+				tempEdgeResidual.c += f;
 			}
 		}
 	}
