@@ -2,6 +2,7 @@ package pgdp.pengusurvivors;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class FlowGraph {
 
@@ -78,6 +79,15 @@ public class FlowGraph {
 	 */
 	public int computeMaxFlowValue() {
 		// TODO
+		computeMaxFlow();
+		List<Integer> flows = new ArrayList<>();
+		//add the flows of s
+		for (Map.Entry<Vertex, Edge> e : s.neighbours.entrySet()) {
+			flows.add(e.getValue().f);
+		}
+		if (flows.size() > 0) {
+			return flows.stream().mapToInt(Integer::intValue).sum();
+		}
 		return Integer.MIN_VALUE;
 	}
 
